@@ -5,6 +5,7 @@ import com.dgp.dgptransito.dgptransito_api.domain.model.Proprietario;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +38,7 @@ public class ProprietarioController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Proprietario adicionar(@RequestBody Proprietario proprietario){
+    public Proprietario adicionar(@Valid @RequestBody Proprietario proprietario){
         return proprietarioRepository.save(proprietario);
     }
 
