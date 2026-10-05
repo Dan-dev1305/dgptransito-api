@@ -1,19 +1,15 @@
 package com.dgp.dgptransito.dgptransito_api.api.controller;
 
-import com.dgp.dgptransito.dgptransito_api.api.repository.ProprietarioRepository;
+import com.dgp.dgptransito.dgptransito_api.domain.repository.ProprietarioRepository;
 import com.dgp.dgptransito.dgptransito_api.domain.model.Proprietario;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.TypedQuery;
+import com.dgp.dgptransito.dgptransito_api.domain.service.RegistroProprietarioService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 @AllArgsConstructor
 @RestController
@@ -21,7 +17,8 @@ import java.util.Optional;
 
 public class ProprietarioController {
 
-    private ProprietarioRepository proprietarioRepository;
+    private final RegistroProprietarioService registroProprietarioService;
+    private final ProprietarioRepository proprietarioRepository;
 
     @GetMapping
     public List<Proprietario> listar(){
@@ -39,7 +36,8 @@ public class ProprietarioController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Proprietario adicionar(@Valid @RequestBody Proprietario proprietario){
-        return proprietarioRepository.save(proprietario);
+        return registroProprietarioService.salvar(proprietario);
+//        return proprietarioRepository.save(proprietario);
     }
 
     @PutMapping("/{proprietarioId}")

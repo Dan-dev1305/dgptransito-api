@@ -1,4 +1,4 @@
-package com.dgp.dgptransito.dgptransito_api.api.repository;
+package com.dgp.dgptransito.dgptransito_api.domain.repository;
 
 import com.dgp.dgptransito.dgptransito_api.domain.model.Proprietario;
 import org.springframework.data.jpa.repository.JpaRepository;
