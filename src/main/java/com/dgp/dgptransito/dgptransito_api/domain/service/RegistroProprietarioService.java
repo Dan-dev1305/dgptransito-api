@@ -1,6 +1,7 @@
 package com.dgp.dgptransito.dgptransito_api.domain.service;
 
 
+import com.dgp.dgptransito.dgptransito_api.domain.exception.NegocioException;
 import com.dgp.dgptransito.dgptransito_api.domain.model.Proprietario;
 import com.dgp.dgptransito.dgptransito_api.domain.repository.ProprietarioRepository;
 import lombok.AllArgsConstructor;
@@ -16,7 +17,14 @@ public class RegistroProprietarioService {
 
     @Transactional
     public Proprietario salvar(Proprietario proprietario){
-       return proprietarioRepository.save(proprietario);
+
+        boolean emailEmUso = proprietarioRepository.findByEmail(proprietario.getEmail())
+                .filter(p -> !p.equals(proprietario))
+                .isPresent();
+        if (emailEmUso){
+            throw new NegocioException("Já existe um proprietario cadastrado com esse email!");
+        }
+        return proprietarioRepository.save(proprietario);
     }
 
     @Transactional
