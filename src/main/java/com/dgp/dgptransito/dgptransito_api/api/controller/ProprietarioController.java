@@ -1,5 +1,6 @@
 package com.dgp.dgptransito.dgptransito_api.api.controller;
 
+import com.dgp.dgptransito.dgptransito_api.domain.exception.NegocioException;
 import com.dgp.dgptransito.dgptransito_api.domain.repository.ProprietarioRepository;
 import com.dgp.dgptransito.dgptransito_api.domain.model.Proprietario;
 import com.dgp.dgptransito.dgptransito_api.domain.service.RegistroProprietarioService;
@@ -59,6 +60,11 @@ public class ProprietarioController {
         }
         registroProprietarioService.excluir(proprietarioId);
         return ResponseEntity.noContent().build();
+    }
+
+    @ExceptionHandler(NegocioException.class)
+    public ResponseEntity<String> capturar(NegocioException e){
+        return ResponseEntity.badRequest().body(e.getMessage());
     }
 
 
