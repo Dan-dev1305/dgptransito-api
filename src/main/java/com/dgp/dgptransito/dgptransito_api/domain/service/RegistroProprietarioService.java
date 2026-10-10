@@ -15,6 +15,12 @@ public class RegistroProprietarioService {
 
     private final ProprietarioRepository proprietarioRepository;
 
+    public Proprietario buscar(Long proprietarioId) {
+        return proprietarioRepository.findById(novoVeiculo.getProprietario().getId())
+                .orElseThrow(() -> new NegocioException("Proprietario não encontrado"));
+
+    }
+
     @Transactional
     public Proprietario salvar(Proprietario proprietario){
 

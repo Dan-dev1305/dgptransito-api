@@ -1,5 +1,6 @@
 package com.dgp.dgptransito.dgptransito_api.api.controller;
 
+import com.dgp.dgptransito.dgptransito_api.domain.exception.NegocioException;
 import com.dgp.dgptransito.dgptransito_api.domain.model.Veiculo;
 import com.dgp.dgptransito.dgptransito_api.domain.repository.VeiculoRepository;
 import com.dgp.dgptransito.dgptransito_api.domain.service.RegistroVeiculoService;
@@ -36,4 +37,10 @@ public class VeiculoController {
     public Veiculo cadastrar(@RequestBody Veiculo veiculo){
         return registroVeiculoService.cadastrar(veiculo);
     }
+
+    @ExceptionHandler(NegocioException.class)
+    public ResponseEntity<String> capturar(NegocioException e){
+        return ResponseEntity.badRequest().body(e.getMessage());
+    }
+
 }
